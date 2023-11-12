@@ -1,0 +1,29 @@
+{
+  "name": "dream-cli-1112",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "bin": {
+    "cli": "src/index.js"
+  },
+  "keywords":[
+    "cli",
+    "shell",
+    "promise",
+    "async",
+    "canvas",
+    "Generator",
+    "Proxy",
+    "Reflect",
+    "ESModule",
+    "CustomEvent",
+    "Decorator"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^8.2.1",
+    "commander": "^11.1.0"
+  }
+}
