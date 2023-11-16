@@ -30,6 +30,7 @@ cli -b create-full-app          创建全栈项目
 cli -b create-npm-app           创建ESModule npm项目
 cli -b create-react-app         创建react项目
 cli -b create-sse-app           创建sse项目
+cli -b create-commonjs-app      创建express项目
 cli -b command                  执行shell命令
             ` )
             .option('-b --bin <string>', '请选择要执行的脚本', "command" )
@@ -157,6 +158,29 @@ cli -b command                  执行shell命令
                 await exec(`cd ${param.fileDir}/api && yarn`)
                 await exec(`cd ${param.fileDir}/Source && yarn`)
                 await exec(`cd ${param.fileDir}/web && yarn`)
+                await exec(`cd ${param.fileDir} && git config --add core.filemode false`)
+                await exec(`chmod -R 777 ${param.fileDir}`)
+                await exec(`cd ${param.fileDir} && git config -l && git branch`)
+                await console.log( `初始化项目${param.fileDir}成功` )
+            }} )()
+            break;
+        case cmd.bin === "create-commonjs-app":
+            await new Proxy( function(){
+                const date = new Date();
+                const fileDir = `${cmd.bin}-${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+                return inquirer.prompt([
+                    {
+                      name: "fileDir",
+                      message: `请输入要项目名称： `,
+                      type: "input",
+                      default: fileDir,
+                    },
+                ]);
+            }, {apply: async function(...args){
+                const param = await Reflect.apply( ...args )
+                await exec(`git clone git@github.com:chenshengda0/create-project.git ${param.fileDir}`);
+                await exec(`cd ${param.fileDir} &&  git fetch origin create-commonjs-app && git checkout -b create-commonjs-app origin/create-commonjs-app`);
+                await exec(`cd ${param.fileDir}/npm && yarn`)
                 await exec(`cd ${param.fileDir} && git config --add core.filemode false`)
                 await exec(`chmod -R 777 ${param.fileDir}`)
                 await exec(`cd ${param.fileDir} && git config -l && git branch`)
